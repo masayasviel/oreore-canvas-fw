@@ -41,16 +41,26 @@ export class Canvas {
         this.context.fillStyle = backgroundColor;
         this.context.fillRect(0, 0, width, height);
     }
+    /** 幅 */
     get width(): number {
         return this.w;
     }
+    /** 高さ */
     get height(): number {
         return this.h;
     }
+    /** 幅 */
     set width(w: number) {
         this.w = w;
     }
+    /** 高さ */
     set height(h: number) {
         this.h = h;
+    }
+    /**
+     * canvas clear
+     */
+    clearAll(): void {
+        this.context.clearRect(0, 0, this.w, this.h);
     }
 }

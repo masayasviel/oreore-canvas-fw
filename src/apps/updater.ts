@@ -1,4 +1,4 @@
-import { BaseElement } from '@core/base-element';
+import { Base } from '@core/base';
 
 /**
  * updater
@@ -6,9 +6,9 @@ import { BaseElement } from '@core/base-element';
 export class Updater {
     /**
      * flame update
-     * @param instance instanse extends BaseElement
+     * @param instance instanse extends Base
      */
-    public update<T extends BaseElement>(instance: T): void {
+    public update<T extends Base>(instance: T): void {
         instance.update();
     }
 }
