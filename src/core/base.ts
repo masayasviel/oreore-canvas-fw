@@ -2,26 +2,12 @@
  * base
  */
 export abstract class Base {
-    /** タッチが有効か */
+    /** インタラクティブ */
     isInteractive: boolean;
-    /** 親 */
-    private myParent: Base | null;
-    /** 子 */
-    private child: Base[];
+    abstract parent: Base;
 
     constructor() {
         this.isInteractive = false;
-        this.myParent = null;
-        this.child = [];
-    }
-
-    /** 親要素 */
-    get parent(): Base | null {
-        return this.myParent;
-    }
-    /** 子要素一覧 */
-    get children(): Base[] {
-        return this.child;
     }
 
     /**
@@ -29,22 +15,23 @@ export abstract class Base {
      */
     abstract update(): void;
     /**
-     * Base型を子孫に持つインスタンスを子要素に加える
-     * @param child 子要素
-     * @returns this
+     *インタラクティブが有効であるとき、タッチ・またはクリックされたタイミングで渡された関数を実行する
+     * @param fn タッチ・またはクリックされたときに行いたい処理
+     * @param params 関数に渡したい引数
      */
-    addChild<T extends Base>(child: T): this {
-        child.myParent = this;
-        this.child.push(child);
-        return this;
+    touchStart(fn: Function, params?: Object): void {
+        if (this.isInteractive) {
+            fn(params);
+        }
     }
     /**
-     * タッチが有効であるとき、タッチされたら渡された関数を実行する
-     * @param fn タッチされたときに行いたい処理
+     * インタラクティブが有効であるとき、タッチ・またはクリックが離れたタイミングで渡された関数を実行する
+     * @param fn タッチ・またはクリックが離れたときに行いたい処理
+     * @param params 関数に渡したい引数
      */
-    touched(fn: Function): void {
+    touchEnd(fn: Function, params?: Object): void {
         if (this.isInteractive) {
-            fn();
+            fn(params);
         }
     }
 }

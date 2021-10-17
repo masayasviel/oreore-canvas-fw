@@ -2,16 +2,16 @@
  * Canvas
  */
 export class Canvas {
+    /** 幅 */
+    width: number;
+    /** 高さ */
+    height: number;
     /** this dom element */
     private domElement: HTMLElement;
     /** canvas */
     private canvas: HTMLCanvasElement;
     /** context */
     private context: CanvasRenderingContext2D;
-    /** 幅 */
-    private w: number;
-    /** 高さ */
-    private h: number;
     /**
      * constructor
      * @param canvasId canvas ID
@@ -36,31 +36,21 @@ export class Canvas {
         this.context = this.canvas.getContext('2d')!;
         this.canvas.width = width;
         this.canvas.height = height;
-        this.w = width;
-        this.h = height;
+        this.width = width;
+        this.height = height;
+        this.backgroundColor = backgroundColor;
+    }
+    /**
+     * set buck ground color
+     */
+    set backgroundColor(backgroundColor: string) {
         this.context.fillStyle = backgroundColor;
-        this.context.fillRect(0, 0, width, height);
-    }
-    /** 幅 */
-    get width(): number {
-        return this.w;
-    }
-    /** 高さ */
-    get height(): number {
-        return this.h;
-    }
-    /** 幅 */
-    set width(w: number) {
-        this.w = w;
-    }
-    /** 高さ */
-    set height(h: number) {
-        this.h = h;
+        this.context.fillRect(0, 0, this.width, this.height);
     }
     /**
      * canvas clear
      */
     clearAll(): void {
-        this.context.clearRect(0, 0, this.w, this.h);
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 }

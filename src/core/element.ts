@@ -1,4 +1,11 @@
-import { Base } from "@core/base";
+import { Base } from '@core/base';
+import { Scene } from '@core/scene';
+import { Group } from '@core/group';
+
+/**
+ * 親要素になれる型
+ */
+type ParentType = Group | Scene;
 
 /**
  * element
@@ -10,12 +17,15 @@ export abstract class Element extends Base {
     abstract y: number;
     /** 移動速度 */
     v: number;
+    /** 親 */
+    parent: ParentType;
     /**
      * constructor
      */
-    constructor() {
+    constructor(parent: ParentType) {
         super();
         this.v = 0;
+        this.parent = parent;
     }
     /**
      * 座標を設定する
