@@ -6,6 +6,14 @@ import { Element } from '@core/element';
  * 子要素になれる型
  */
 type ChildType = Group | Element;
+/**
+ * Sceneのコンストラクタ
+ * @member backgroundColor 背景色
+ */
+export interface SceneParameterType {
+    backgroundColor?: string,
+    nextScene?: Scene;
+}
 
 /**
  * Scene
@@ -13,17 +21,23 @@ type ChildType = Group | Element;
 export class Scene extends Base {
     /** 子 */
     private child: ChildType[];
+    /** 背景色 */
+    backgroundColor?: string;
+    /** 次のシーン */
+    nextScene?: Scene;
 
-    constructor() {
+    constructor(param: SceneParameterType) {
         super();
         this.child = [];
+        this.backgroundColor = param.backgroundColor;
+        this.nextScene = param.nextScene;
     }
 
     /**
      * フレーム更新時に実行される処理
      */
     update(): void {
-
+        this.child.forEach(child => child.update());
     };
 
     /** 親(自身) */
@@ -45,4 +59,7 @@ export class Scene extends Base {
         this.child.push(child);
         return this;
     }
+
+    /** 次のシーンへ進む処理 */
+    exit(): void {}
 }

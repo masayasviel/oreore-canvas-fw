@@ -19,7 +19,7 @@ export abstract class Base {
      * @param fn タッチ・またはクリックされたときに行いたい処理
      * @param params 関数に渡したい引数
      */
-    touchStart(fn: Function, params?: Object): void {
+    touchStart<T>(fn: Function, params?: T): void {
         if (this.isInteractive) {
             fn(params);
         }
@@ -29,7 +29,7 @@ export abstract class Base {
      * @param fn タッチ・またはクリックが離れたときに行いたい処理
      * @param params 関数に渡したい引数
      */
-    touchEnd(fn: Function, params?: Object): void {
+    touchEnd<T>(fn: Function, params?: T): void {
         if (this.isInteractive) {
             fn(params);
         }

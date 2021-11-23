@@ -25,7 +25,9 @@ export class Group extends Base {
     /**
      * フレーム更新時に実行される処理
      */
-    update(): void {}
+    update(): void {
+        this.child.forEach(child => child.update());
+    }
     /**
      * Element型を子孫に持つインスタンスを子要素に加える
      * @param child 子要素

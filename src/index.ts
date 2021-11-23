@@ -1,7 +1,12 @@
-import { Canvas } from './core/canvas';
+import { Scene } from '@core/scene';
+import { DiContainer } from './core/diContainer'
 
-function setup() {
-    const canvas = new Canvas('canvas');
+import { MainScene } from './mainScene';
+
+function setup(scenes: Scene[]) {
+    const main = new DiContainer(scenes)
 }
 
-setup();
+setup([
+    (new MainScene({}))
+]);

@@ -1,3 +1,6 @@
+import { Base } from '@core/base';
+import { Scene } from '@core/scene';
+
 /**
  * Canvas
  */
@@ -12,18 +15,20 @@ export class Canvas {
     private canvas: HTMLCanvasElement;
     /** context */
     private context: CanvasRenderingContext2D;
+    /** current scene */
+    private currentScene: Scene;
     /**
      * constructor
      * @param canvasId canvas ID
-     * @param backgroundColor 背景色
+     * @param startScene 始めのシーン
      * @param width 幅
      * @param height 高さ
      */
     constructor(
         canvasId: string,
-        backgroundColor='#444',
+        startScene: Scene,
         width=640,
-        height=960,
+        height=960
     ) {
         const checkExistCanvasId = document.getElementById(canvasId);
         if (checkExistCanvasId) {
@@ -38,7 +43,7 @@ export class Canvas {
         this.canvas.height = height;
         this.width = width;
         this.height = height;
-        this.backgroundColor = backgroundColor;
+        this.currentScene = startScene;
     }
     /**
      * set buck ground color
@@ -48,9 +53,23 @@ export class Canvas {
         this.context.fillRect(0, 0, this.width, this.height);
     }
     /**
+     * 現在のシーンを更新する
+     * @param nextScene 次のシーン
+     */
+    setCurrentScene(nextScene: Scene): void {
+        this.currentScene = nextScene;
+    }
+    /**
      * canvas clear
      */
     clearAll(): void {
         this.context.clearRect(0, 0, this.width, this.height);
+    }
+
+    /**
+     * flame update
+     */
+    update<T extends Base>(targets: T[]): void {
+        targets.forEach(target => target.update());
     }
 }
