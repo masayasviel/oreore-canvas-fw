@@ -70,6 +70,7 @@ export class Canvas {
      * flame update
      */
     update<T extends Base>(targets: T[]): void {
+        // TODO: これは描画をするメソッドなのに違っている
         targets.forEach(target => target.update());
     }
 }

@@ -61,5 +61,7 @@ export class Scene extends Base {
     }
 
     /** 次のシーンへ進む処理 */
-    exit(): void {}
+    exit(): void {
+        // TODO: 依存性を注入できれば次のシーンへ飛べる
+    }
 }
