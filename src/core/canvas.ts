@@ -1,4 +1,3 @@
-import { Base } from '@core/base';
 import { Scene } from '@core/scene';
 
 /**
@@ -6,17 +5,17 @@ import { Scene } from '@core/scene';
  */
 export class Canvas {
     /** 幅 */
-    width: number;
+    static width: number;
     /** 高さ */
-    height: number;
+    static height: number;
     /** this dom element */
-    private domElement: HTMLElement;
+    private static domElement: HTMLElement;
     /** canvas */
-    private canvas: HTMLCanvasElement;
+    private static canvas: HTMLCanvasElement;
     /** context */
-    private context: CanvasRenderingContext2D;
+    private static context: CanvasRenderingContext2D;
     /** current scene */
-    private currentScene: Scene;
+    private static currentScene: Scene;
     /**
      * constructor
      * @param canvasId canvas ID
@@ -32,45 +31,45 @@ export class Canvas {
     ) {
         const checkExistCanvasId = document.getElementById(canvasId);
         if (checkExistCanvasId) {
-            this.domElement = checkExistCanvasId;
+            Canvas.domElement = checkExistCanvasId;
         } else {
-            this.domElement = document.createElement('canvas');
-            this.domElement.setAttribute('id', canvasId);
+            Canvas.domElement = document.createElement('canvas');
+            Canvas.domElement.setAttribute('id', canvasId);
         }
-        this.canvas = this.domElement as HTMLCanvasElement;
-        this.context = this.canvas.getContext('2d')!;
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.width = width;
-        this.height = height;
-        this.currentScene = startScene;
+        Canvas.canvas = Canvas.domElement as HTMLCanvasElement;
+        Canvas.context = Canvas.canvas.getContext('2d')!;
+        Canvas.canvas.width = width;
+        Canvas.canvas.height = height;
+        Canvas.width = width;
+        Canvas.height = height;
+        Canvas.currentScene = startScene;
     }
     /**
      * set buck ground color
      */
-    set backgroundColor(backgroundColor: string) {
-        this.context.fillStyle = backgroundColor;
-        this.context.fillRect(0, 0, this.width, this.height);
+    static set backgroundColor(backgroundColor: string) {
+        Canvas.context.fillStyle = backgroundColor;
+        Canvas.context.fillRect(0, 0, Canvas.width, Canvas.height);
     }
     /**
      * 現在のシーンを更新する
      * @param nextScene 次のシーン
      */
-    setCurrentScene(nextScene: Scene): void {
-        this.currentScene = nextScene;
+    static setCurrentScene(nextScene: Scene): void {
+        Canvas.currentScene = nextScene;
     }
     /**
      * canvas clear
      */
-    clearAll(): void {
-        this.context.clearRect(0, 0, this.width, this.height);
+    static clearAll(): void {
+        Canvas.context.clearRect(0, 0, Canvas.width, Canvas.height);
     }
 
     /**
      * flame update
      */
-    update<T extends Base>(targets: T[]): void {
-        // TODO: これは描画をするメソッドなのに違っている
-        targets.forEach(target => target.update());
+    static update(): void {
+        Canvas.currentScene.update();
+        // TODO: 画面描画処理
     }
 }

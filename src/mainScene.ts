@@ -1,11 +1,11 @@
-import { Scene, SceneParameterType } from '@core/scene';
+import { Scene } from '@core/scene';
 
 /**
  * メインシーン
  */
 export class MainScene extends Scene {
-    constructor(param: SceneParameterType) {
-        super(param);
+    constructor() {
+        super();
     }
 
     update() {

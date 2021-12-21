@@ -1,12 +1,11 @@
 import { Scene } from '@core/scene';
-import { DiContainer } from './core/diContainer'
+import { Type } from '@core/interface';
 
 import { MainScene } from './mainScene';
+import { Canvas } from '@core/canvas';
 
-function setup(scenes: Scene[]) {
-    const main = new DiContainer(scenes)
+function setup<T extends Scene>(startScene: Type<T>) {
+    new Canvas('canvas', new startScene());
 }
 
-setup([
-    (new MainScene({}))
-]);
+setup(MainScene);

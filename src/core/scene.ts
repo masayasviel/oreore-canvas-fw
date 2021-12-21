@@ -1,19 +1,13 @@
+import { Canvas } from '@core/canvas';
 import { Base } from '@core/base';
 import { Group } from '@core/group';
 import { Element } from '@core/element';
+import { Type } from '@core/interface';
 
 /**
  * 子要素になれる型
  */
 type ChildType = Group | Element;
-/**
- * Sceneのコンストラクタ
- * @member backgroundColor 背景色
- */
-export interface SceneParameterType {
-    backgroundColor?: string,
-    nextScene?: Scene;
-}
 
 /**
  * Scene
@@ -21,16 +15,12 @@ export interface SceneParameterType {
 export class Scene extends Base {
     /** 子 */
     private child: ChildType[];
-    /** 背景色 */
-    backgroundColor?: string;
     /** 次のシーン */
-    nextScene?: Scene;
+    nextScene?: Type<Scene>;
 
-    constructor(param: SceneParameterType) {
+    constructor() {
         super();
         this.child = [];
-        this.backgroundColor = param.backgroundColor;
-        this.nextScene = param.nextScene;
     }
 
     /**
@@ -62,6 +52,11 @@ export class Scene extends Base {
 
     /** 次のシーンへ進む処理 */
     exit(): void {
-        // TODO: 依存性を注入できれば次のシーンへ飛べる
+        if (this.nextScene) {
+            Canvas.setCurrentScene(new this.nextScene());
+        } else {
+            // TODO: 次のシーンを設定していないのexit()は出来ないエラー
+            throw Error();
+        }
     }
 }
